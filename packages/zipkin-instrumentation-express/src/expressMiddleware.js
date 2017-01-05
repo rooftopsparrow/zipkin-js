@@ -5,6 +5,7 @@ const {
   TraceId
 } = require('zipkin');
 const url = require('url');
+const onFinished = require('on-finished');
 
 function containsRequiredHeaders(req) {
   return req.header(Header.TraceId) !== undefined &&
@@ -88,7 +89,7 @@ module.exports = function expressMiddleware({tracer, serviceName = 'unknown', po
         tracer.recordBinary(Header.Flags, id.flags.toString());
       }
 
-      res.on('finish', () => {
+      onFinished(res, () => {
         tracer.scoped(() => {
           tracer.setId(id);
           tracer.recordBinary('http.status_code', res.statusCode.toString());

@@ -13,5 +13,8 @@
     "express": "^4.13.4",
     "node-fetch": "^1.5.1",
     "zipkin": "^0.5.1"
+  },
+  "dependencies": {
+    "on-finished": "^2.3.0"
   }
 }
